@@ -14,15 +14,30 @@ synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_con
 def synthesize_to_speaker(text):
     synthesizer.speak_text(text)
 
+class SpeechAssistant(object):
+    is_running = False
 
-def speech_assistant():
-    while True:
-        print("hallowween")
-        result = speech_recogniser.recognize_once_async().get()
-        if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-            print(result.text)
-            synthesize_to_speaker(result.text)
+    def __init__(self):
+        self.is_running = False
 
+    def is_assistant_running(self):
+        return self.is_running
+
+    def run_assistant(self):
+        self.is_running = True
+        while True:
+            print("Waiting for speech")
+            result = speech_recogniser.recognize_once_async()
+            if not self.is_running:
+                break
+            result = result.get()
+            if result.reason == speechsdk.ResultReason.RecognizedSpeech:
+                print(result.text)
+                synthesize_to_speaker(result.text)
+
+    def stop_assistant(self):
+        self.is_running = False
+    
 
 def start_assistant():
     pass
