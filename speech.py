@@ -1,3 +1,6 @@
+import asyncio
+import os
+from time import sleep
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
 
@@ -11,11 +14,19 @@ synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_con
 def synthesize_to_speaker(text):
     synthesizer.speak_text(text)
 
-def synthesize_from_mic():
-    result = speech_recogniser.recognize_once()
-    if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        synthesize_to_speaker(result.text)
+
+def speech_assistant():
+    while True:
+        print("hallowween")
+        result = speech_recogniser.recognize_once_async().get()
+        if result.reason == speechsdk.ResultReason.RecognizedSpeech:
+            print(result.text)
+            synthesize_to_speaker(result.text)
+
+
+def start_assistant():
+    pass
 
 if __name__ == "__main__":
-    synthesize_from_mic()
+    start_assistant()
     
