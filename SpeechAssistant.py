@@ -1,8 +1,8 @@
-import asyncio
-import os
-from time import sleep
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
+
+import re
+from config import INSTRUCTIONS, InstructionType
 
 speech_config = speechsdk.SpeechConfig(subscription="4a78b0929e514090a534d12ae5b8a1d7", region="eastus")
 speech_recogniser = speechsdk.SpeechRecognizer(speech_config=speech_config)
@@ -17,31 +17,42 @@ def synthesize_to_speaker(text):
 class SpeechAssistant(object):
     is_running = False
 
-    def __init__(self):
+    def __init__(self, on_label_change):
         self.is_running = False
+        self.change_label = on_label_change
 
     def is_assistant_running(self):
         return self.is_running
 
+    def act_on_input(self, input):
+        for inst in INSTRUCTIONS:
+            matches = list(filter(
+                lambda message: 
+                    re.match(re.compile(message, re.IGNORECASE), input), inst["inputMessages"]))
+            if matches:
+                print(inst["type"])
+                break
+
     def run_assistant(self):
         self.is_running = True
         while True:
-            print("Waiting for speech")
             result = speech_recogniser.recognize_once_async()
             if not self.is_running:
                 break
+
+            self.change_label("Waiting for speech")
             result = result.get()
+            # self.change_label("Recognising speech")
+            print("Recognising speech")
             if result.reason == speechsdk.ResultReason.RecognizedSpeech:
                 print(result.text)
-                synthesize_to_speaker(result.text)
+                self.act_on_input(result.text)
 
     def stop_assistant(self):
         self.is_running = False
     
 
-def start_assistant():
-    pass
-
 if __name__ == "__main__":
-    start_assistant()
+    s = SpeechAssistant(1)
+    s.act_on_input("what books do I have")
     
