@@ -1,6 +1,6 @@
 import PyPDF2
 
-from SpeechAssistant import synthesize_to_speaker
+from Assistant import synthesize_to_speaker
 
 pdffileobj=open('Prajjawal_Agarwal_Resume.pdf','rb')
 pdfreader = PyPDF2.PdfFileReader(pdffileobj)

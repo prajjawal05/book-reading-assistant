@@ -2,24 +2,24 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty
 from threading import Thread
-from SpeechAssistant import SpeechAssistant
+from Assistant import Assistant
 import os
 
 class Handler(object):
     assistant = None
 
     def __init__(self, handle_assistant_label_change):
-        self.assistant = SpeechAssistant(handle_assistant_label_change)
+        self.assistant = Assistant(handle_assistant_label_change)
 
     def _start_assistant(self):
-        Thread(target=self.assistant.run_assistant).start()
+        Thread(target=self.assistant.run).start()
 
     def toggle_speech(self):
-        if not self.assistant.is_assistant_running():
+        if not self.assistant.is_running():
             self._start_assistant()
             action_label = "Speak something. Press to stop"
         else:
-            self.assistant.stop_assistant()
+            self.assistant.stop()
             action_label = "Press to initiate assistant"
 
         return action_label

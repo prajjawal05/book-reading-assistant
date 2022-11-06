@@ -30,7 +30,7 @@ INSTRUCTIONS = [{
 
 INSTRUCTIONS_AVAILABLE = """
 1. List all the books you have.
-2. Know what you were listening to.
+2. Continue listening the last book.
 3. Read a book:
     a. From where you left.
     b. From the beginning.
