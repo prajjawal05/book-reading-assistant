@@ -2,7 +2,7 @@ import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
 
 import re
-from config import INSTRUCTIONS, InstructionType
+from config import INSTRUCTIONS, InstructionType, INSTRUCTIONS_AVAILABLE
 
 speech_config = speechsdk.SpeechConfig(subscription="4a78b0929e514090a534d12ae5b8a1d7", region="eastus")
 speech_recogniser = speechsdk.SpeechRecognizer(speech_config=speech_config)
@@ -35,20 +35,21 @@ class SpeechAssistant(object):
 
     def run_assistant(self):
         self.is_running = True
+        self.change_label(INSTRUCTIONS_AVAILABLE)
         while True:
             result = speech_recogniser.recognize_once_async()
             if not self.is_running:
                 break
 
-            self.change_label("Waiting for speech")
             result = result.get()
-            # self.change_label("Recognising speech")
+            
             print("Recognising speech")
             if result.reason == speechsdk.ResultReason.RecognizedSpeech:
                 print(result.text)
                 self.act_on_input(result.text)
 
     def stop_assistant(self):
+        self.change_label("Please enable assistant.")
         self.is_running = False
     
 

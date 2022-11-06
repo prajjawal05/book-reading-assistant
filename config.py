@@ -28,6 +28,12 @@ INSTRUCTIONS = [{
     "outputMessage": "Welcome!"
 }]
 
-
+INSTRUCTIONS_AVAILABLE = """
+1. List all the books you have.
+2. Know what you were listening to.
+3. Read a book:
+    a. From where you left.
+    b. From the beginning.
+"""
 
 # todo: increase instruction set, make more ui interactive
