@@ -3,7 +3,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty
 from threading import Thread
 from Assistant import Assistant
-import os
 
 class Handler(object):
     assistant = None
@@ -47,6 +46,5 @@ class Window(App):
     def build(self):
         return MyLayout()
 
-
-neural_random = Window()
-neural_random.run()
+if __name__ == "__main__":
+    Window().run()
