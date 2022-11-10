@@ -23,7 +23,7 @@ class BookManager(object):
         book_progress = self.file_manager.get_progress(bookname)
         page_num = 0
 
-        if book_progress:
+        if book_progress and not book_progress.get("completed", None):
             self.speech_assistant.speak("Do you want to continue where you last left?")
             decision = self.speech_assistant.listen()
             if re.match(re.compile('yes', re.IGNORECASE), decision):
@@ -34,10 +34,11 @@ class BookManager(object):
         
     def _get_book_name_regex(self, input: str):
         words = input.split()
-        if words[0] == "read":
+        if words[0].lower() == "read":
             words = words[1:]
         
-        return ".*" + ".*".join(words).lower() + ".*"
+        print(words)
+        return ".*" + ".*".join(words).lower()
 
     def list_all_books(self):
         all_books = self.file_manager.get_book_names()
@@ -67,8 +68,11 @@ class BookManager(object):
         self._read_book(book_name)
 
     def read_book(self, input: str):
+        input = input[:-1]
+
         if re.match(re.compile("read it", re.IGNORECASE), input):
             self._read_ambiguos_book()
+            return
 
         self.last_query = InstructionType.READ_BOOK
         all_books = self.file_manager.get_book_names()
@@ -77,9 +81,11 @@ class BookManager(object):
         
         if not matching_books:
             self.speech_assistant.speak("book not found")
+            return
 
         if len(matching_books) > 1:
             self.speech_assistant.speak("be more specific. There are {} books with similar name".format(len(matching_books)))
+            return
 
         book_name = matching_books.pop()
         self._read_book(book_name)
