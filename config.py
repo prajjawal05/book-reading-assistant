@@ -9,12 +9,17 @@ class InstructionType(Enum):
 
 INSTRUCTIONS = [{
     "type": InstructionType.LIST_BOOKS,
-    "inputMessages": ['what books', 'list books'],
+    "inputMessages": ['what.*books.*have.*', '.*list.*books.*'],
     "outputMessage": "The books that you have are:"
 },
 {
+    "type": InstructionType.LAST_READING,
+    "inputMessages": ['.*last.*reading.*'],
+    "outputMessage": "Last book read"
+}, 
+{
     "type": InstructionType.READ_BOOK,
-    "inputMessages": ['read'],
+    "inputMessages": ['read.*'],
     "outputMessage": "Reading book"
 }, 
 {
@@ -25,7 +30,7 @@ INSTRUCTIONS = [{
 
 INSTRUCTIONS_AVAILABLE = """
 1. List all the books you have.
-2. Continue listening the last book.
+2. Last reading book
 3. Read a book:
     a. From where you left.
     b. From the beginning.

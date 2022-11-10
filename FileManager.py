@@ -1,15 +1,12 @@
 import os
 import json
 
-from SpeechHelper import SpeechHelper
-
 class FileManager(object):
-    speech_helper = None
     dir = "/Users/prajjawalsbu/Desktop/books"
     progress_fname = 'progress.json'
 
     def __init__(self) -> None:
-        self.speech_helper = SpeechHelper()
+        pass
 
     def _get_file_extension(self, file) -> str:
         print(file.split(".")[-1])
@@ -25,18 +22,7 @@ class FileManager(object):
     def get_book_names(self) -> list[str]:
             all_files = os.listdir(self.dir)
             pdfs = list(filter(lambda file_name: self._get_file_extension(file_name) == "pdf", all_files))
-            return list(map(self._get_file_name, pdfs))
-
-    def list_books(self):
-        file_names = self.get_book_names()
-
-        if not file_names:
-            self.speech_helper.speak("You do not have any books")
-            return
-
-        self.speech_helper.speak("You have {} books. They are: ".format(len(file_names)))
-        for file in file_names:
-            self.speech_helper.speak(file)
+            return list(map(self._get_file_name, pdfs))        
 
     def _get_progress_path(self) -> str:
         return "{}/{}".format(self.dir, self.progress_fname)
@@ -76,6 +62,20 @@ class FileManager(object):
 
         f.write(json.loads(modified_progress))
         return
+
+    def last_progress(self) -> str:
+        file_path = self._get_progress_path()
+        f = open(file_path, 'r')
+
+        all_progress = []
+        file_content = f.read()
+        if file_content:
+            all_progress = json.loads(file_content)
+
+        if not all_progress:
+            return None
+        
+        return all_progress[-1]["book_name"]
 
 
 #todo: add support for more types than pdf

@@ -13,7 +13,8 @@ class Assistant(object):
 
     def _get_instruction_handler(self, inst_type):
         handlers = {
-            InstructionType.LIST_BOOKS:  lambda _: self.file_manager.list_books(),
+            InstructionType.LIST_BOOKS:  lambda _: self.book_manager.list_all_books(),
+            InstructionType.LAST_READING: lambda _: self.book_manager.get_last_reading_book(),
             InstructionType.READ_BOOK:  lambda input: self.book_manager.read_book(input),
         }
 
@@ -61,7 +62,7 @@ class Assistant(object):
 
 if __name__ == "__main__":
     s = Assistant(1)
-    s.act("read Grokking")
+    s.act("last reading")
     
 
 # todo: handle file names more elegantly
