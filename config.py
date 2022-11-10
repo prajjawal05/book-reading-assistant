@@ -13,13 +13,8 @@ INSTRUCTIONS = [{
     "outputMessage": "The books that you have are:"
 },
 {
-    "type": InstructionType.LAST_READING,
-    "inputMessages": ['last reading'],
-    "outputMessage": "The books that you were last reading was:"
-},
-{
     "type": InstructionType.READ_BOOK,
-    "inputMessages": ['read me'],
+    "inputMessages": ['read'],
     "outputMessage": "Reading book"
 }, 
 {

@@ -2,16 +2,19 @@ import re
 from config import INSTRUCTIONS, InstructionType, INSTRUCTIONS_AVAILABLE
 
 from FileManager import FileManager
+from BookManager import BookManager
 from SpeechHelper import SpeechHelper
 
 class Assistant(object):
     _is_running = False
     speech_helper = None
     file_manager = None
+    book_manager = None
 
     def _get_instruction_handler(self, inst_type):
         handlers = {
-            InstructionType.LIST_BOOKS:  lambda _: self.file_manager.list_books()
+            InstructionType.LIST_BOOKS:  lambda _: self.file_manager.list_books(),
+            InstructionType.READ_BOOK:  lambda input: self.book_manager.read_book(input),
         }
 
         return handlers.get(inst_type)
@@ -21,6 +24,7 @@ class Assistant(object):
         self.change_label = on_label_change
         self.speech_helper = SpeechHelper()
         self.file_manager = FileManager()
+        self.book_manager = BookManager()
 
     def is_running(self):
         return self._is_running
@@ -32,6 +36,7 @@ class Assistant(object):
                 lambda message: 
                     re.match(re.compile(message, re.IGNORECASE), input), inst["inputMessages"]))
             if matches:
+                print(inst)
                 handler = self._get_instruction_handler(inst["type"])
                 handler(input)
                 break
@@ -56,5 +61,7 @@ class Assistant(object):
 
 if __name__ == "__main__":
     s = Assistant(1)
-    s.act("what books do I have")
+    s.act("read Grokking")
     
+
+# todo: handle file names more elegantly
