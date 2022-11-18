@@ -23,15 +23,19 @@ class BookManager(object):
 
         book_progress = self.file_manager.get_progress(bookname)
         page_num = 0
+        line_num = 0
 
         if book_progress and not book_progress.get("completed", None):
             self.speech_assistant.speak("Do you want to continue where you last left?")
             decision = self.speech_assistant.listen()
             if re.match(re.compile('yes', re.IGNORECASE), decision):
                 page_num = book_progress["page_num"]
+                line_num = book_progress["line_num"]
 
-        Thread(target=self.pdf_reader.read, args=(bookname, page_num)).start()
+        Thread(target=self.pdf_reader.read, args=(bookname, page_num, line_num)).start()
 
+    def pause_book_read(self):
+        self.pdf_reader.stop()
         
     def _get_book_name_regex(self, input: str):
         words = input.split()
@@ -54,6 +58,10 @@ class BookManager(object):
 
     def get_last_reading_book(self):
         last_progress = self.file_manager.last_progress()
+        if not last_progress:
+            self.speech_assistant.speak("No book found")
+            return
+    
         self.last_query = InstructionType.LAST_READING
         self.speech_assistant.speak(last_progress)
 

@@ -4,7 +4,7 @@ class InstructionType(Enum):
     LIST_BOOKS = "LIST_BOOKS",
     LAST_READING = "LAST_READING"
     READ_BOOK = "READ_BOOK"
-    STOP = "STOP"
+    PAUSE = "PAUSE"
 
 
 INSTRUCTIONS = [{
@@ -23,8 +23,8 @@ INSTRUCTIONS = [{
     "outputMessage": "Reading book"
 }, 
 {
-    "type": InstructionType.STOP,
-    "inputMessages": ['stop'],
+    "type": InstructionType.PAUSE,
+    "inputMessages": ['pause'],
     "outputMessage": "Welcome!"
 }]
 

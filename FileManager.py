@@ -44,12 +44,13 @@ class FileManager(object):
 
     def save_progress(self, book_name, page_num, line_num):
         file_path = self._get_progress_path()
-        f = open(file_path, 'w')
+        file_reader = open(file_path, 'r')
 
         all_progress = []
-        file_content = f.read()
+        file_content = file_reader.read()
         if file_content:
             all_progress = json.loads(file_content)
+        file_reader.close()
 
         modified_progress = [
             *list(filter(lambda progress: progress["book_name"] != book_name, all_progress)),
@@ -60,7 +61,9 @@ class FileManager(object):
             }
         ]
 
-        f.write(json.loads(modified_progress))
+        f = open(file_path, 'w')
+        f.write(json.dumps(modified_progress))
+        f.close()
         return
 
     def last_progress(self) -> str:
@@ -80,4 +83,7 @@ class FileManager(object):
 
 #todo: add support for more types than pdf
 #todo: add chapter support
-#todo: add first page support   
+#todo: add first page support 
+# 
+# 
+# stop, continue, line change  
