@@ -3,6 +3,7 @@ from config import InstructionType
 from SpeechHelper import SpeechHelper
 from FileManager import FileManager
 from PdfHandler import PdfReader
+from threading import Thread
 
 class BookManager(object):
     last_query = None
@@ -29,7 +30,7 @@ class BookManager(object):
             if re.match(re.compile('yes', re.IGNORECASE), decision):
                 page_num = book_progress["page_num"]
 
-        self.pdf_reader.read(bookname, init_page_num=page_num)
+        Thread(target=self.pdf_reader.read, args=(bookname, page_num)).start()
 
         
     def _get_book_name_regex(self, input: str):
