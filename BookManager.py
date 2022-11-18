@@ -28,7 +28,7 @@ class BookManager(object):
         if book_progress and not book_progress.get("completed", None):
             self.speech_assistant.speak("Do you want to continue where you last left?")
             decision = self.speech_assistant.listen()
-            if re.match(re.compile('yes', re.IGNORECASE), decision):
+            if decision and re.match(re.compile('yes', re.IGNORECASE), decision):
                 page_num = book_progress["page_num"]
                 line_num = book_progress["line_num"]
 

@@ -86,4 +86,4 @@ class FileManager(object):
 #todo: add first page support 
 # 
 # 
-# stop, continue, line change  
+# continue, line change  

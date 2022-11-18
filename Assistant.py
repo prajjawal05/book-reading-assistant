@@ -58,6 +58,7 @@ class Assistant(object):
 
     def stop(self):
         self.change_label("Please enable assistant.")
+        self.book_manager.pause_book_read()
         self._is_running = False
     
 
