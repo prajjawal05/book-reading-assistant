@@ -4,7 +4,7 @@ from config import INSTRUCTIONS, InstructionType, INSTRUCTIONS_AVAILABLE
 from FileManager import FileManager
 from BookManager import BookManager
 from SpeechHelper import SpeechHelper
-
+#  pause, continue
 class Assistant(object):
     _is_running = False
     speech_helper = None

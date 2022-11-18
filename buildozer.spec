@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = Book Assistant
+title = My Application
 
 # (str) Package name
-package.name = bookassistant
+package.name = myapp
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.personal
+package.domain = org.test
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -37,17 +37,17 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
+requirements = python3,kivy,PyPDF2,azure-cognitiveservices-speech
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = /Users/prajjawalsbu/Desktop/1232263.jpeg
+#presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
-icon.filename = /Users/prajjawalsbu/Desktop/990d7ae44f0677351448f1131dfdeb4b.jpeg
+#icon.filename = %(source.dir)s/data/icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
