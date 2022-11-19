@@ -20,9 +20,9 @@ class FileManager(object):
         return "{}/{}".format(self.dir, book_name)
 
     def get_book_names(self) -> list[str]:
-            all_files = os.listdir(self.dir)
-            pdfs = list(filter(lambda file_name: self._get_file_extension(file_name) == "pdf", all_files))
-            return list(map(self._get_file_name, pdfs))        
+        all_files = os.listdir(self.dir)
+        pdfs = list(filter(lambda file_name: self._get_file_extension(file_name) == "pdf", all_files))
+        return list(map(self._get_file_name, pdfs))        
 
     def _get_progress_path(self) -> str:
         return "{}/{}".format(self.dir, self.progress_fname)
@@ -86,5 +86,5 @@ class FileManager(object):
 #todo: add first page support 
 # 
 # 
-# [test] continue
-# line change  
+# [test] continue should not ask where to continue
+# refine texts more properly  

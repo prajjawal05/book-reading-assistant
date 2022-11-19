@@ -27,7 +27,7 @@ class Assistant(object):
         self.change_label = on_label_change
         self.speech_helper = SpeechHelper()
         self.file_manager = FileManager()
-        self.book_manager = BookManager()
+        self.book_manager = BookManager(on_label_change)
 
     def is_running(self):
         return self._is_running
