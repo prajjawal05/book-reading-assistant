@@ -15,6 +15,7 @@ class Assistant(object):
         handlers = {
             InstructionType.LIST_BOOKS:  lambda _: self.book_manager.list_all_books(),
             InstructionType.LAST_READING: lambda _: self.book_manager.get_last_reading_book(),
+            InstructionType.CONTINUE_READING: lambda _: self.book_manager.continue_last_reading_book(),
             InstructionType.READ_BOOK:  lambda input: self.book_manager.read_book(input),
             InstructionType.PAUSE:  lambda _: self.book_manager.pause_book_read(),
         }

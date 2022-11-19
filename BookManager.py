@@ -65,6 +65,21 @@ class BookManager(object):
         self.last_query = InstructionType.LAST_READING
         self.speech_assistant.speak(last_progress)
 
+    def continue_last_reading_book(self):
+        last_progressed_book = self.file_manager.last_progress()
+        if not last_progressed_book:
+            self.speech_assistant.speak("No book found")
+            return
+
+        book_progress = self.file_manager.get_progress(last_progressed_book)
+        if book_progress.get("completed", None):
+            self.speech_assistant.speak("Book Already completed, do you want to restart")
+            decision = self.speech_assistant.listen()
+            if decision and not re.match(re.compile('yes', re.IGNORECASE), decision):
+                return
+                
+        self._read_book(last_progressed_book)
+
     def _read_ambiguos_book(self):
         book_name = None
         if self.last_query == InstructionType.LAST_READING:
