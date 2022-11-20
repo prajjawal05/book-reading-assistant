@@ -36,12 +36,12 @@ INSTRUCTIONS = [{
 
 INSTRUCTIONS_AVAILABLE = """
 1. List all the books you have.
-2. Last reading book
-3. Continue reading book
-4. Read a book:
-    a. From where you left.
-    b. From the beginning.
-5. Pause a reading book
+2. Last reading book.               
+3. Continue reading book.       
+4. Read a book:                         
+    a. From where you left.    
+    b. From the beginning.     
+5. Pause a reading book.        
 """
 
 # todo: increase instruction set, make more ui interactive

@@ -4,7 +4,14 @@
         Label:
             id: "info_label"
             text: root.info_label
-            font_size: 64
+            font_size: 48
+            text_size: root.width, None
+            size: self.texture_size
+            halign: 'center'
+            valign: 'middle'
+            # size_hint_y: None
+            # text_size: self.width, None
+            # height: self.texture_size[1]
         Button: 
             id: "action_label"
             text: root.action_label

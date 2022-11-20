@@ -58,6 +58,7 @@ class BookManager(BookManagerInterface):
                 self.change_label("Continue? Yes or No")
                 self.speech_assistant.speak("Do you want to continue where you last left?")
                 decision = self.speech_assistant.listen()
+                print("continue decision - {}".format(decision))
 
             if decision and re.match(re.compile('yes', re.IGNORECASE), decision):
                 page_num = book_progress["page_num"]
@@ -82,7 +83,6 @@ class BookManager(BookManagerInterface):
         if words[0].lower() == "read":
             words = words[1:]
         
-        print(words)
         return ".*" + ".*".join(words).lower()
 
     def list_all_books(self):
@@ -129,6 +129,7 @@ class BookManager(BookManagerInterface):
             self.change_label("Restart? Yes or No")
             self.speech_assistant.speak("Book Already completed, do you want to restart")
             decision = self.speech_assistant.listen()
+            print("restart decision - {}".format(decision))
             if decision and not re.match(re.compile('yes', re.IGNORECASE), decision):
                 self.change_label(INSTRUCTIONS_AVAILABLE)
                 return

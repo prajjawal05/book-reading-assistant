@@ -9,11 +9,9 @@ class FileManager(object):
         pass
 
     def _get_file_extension(self, file) -> str:
-        print(file.split(".")[-1])
         return file.split(".")[-1]
 
     def _get_file_name(self, file) -> str:
-        print(file.split(".")[0:-1])
         return ".".join(file.split(".")[0:-1])
 
     def get_book_path(self, book_name) -> str:
@@ -85,4 +83,4 @@ class FileManager(object):
 #todo: add support for more types than pdf
 #todo: add chapter support
 #todo: add first page support 
-#todo: pause is not working properly
+#todo: pause should work immediately
