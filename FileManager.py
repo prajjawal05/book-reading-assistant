@@ -42,7 +42,7 @@ class FileManager(object):
         
         return None
 
-    def save_progress(self, book_name, page_num, line_num):
+    def save_progress(self, book_name, page_num, line_num, completed = False):
         file_path = self._get_progress_path()
         file_reader = open(file_path, 'r')
 
@@ -57,7 +57,8 @@ class FileManager(object):
             {
                 "book_name": book_name,
                 "page_num": page_num,
-                "line_num": line_num
+                "line_num": line_num,
+                "completed": completed
             }
         ]
 
@@ -87,4 +88,3 @@ class FileManager(object):
 # 
 # 
 # [test] continue should not ask where to continue
-# refine texts more properly  

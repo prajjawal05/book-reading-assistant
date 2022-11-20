@@ -1,5 +1,5 @@
 import re
-from config import InstructionType
+from config import InstructionType, INSTRUCTIONS_AVAILABLE
 from SpeechHelper import SpeechHelper
 from FileManager import FileManager
 from PdfHandler import PdfReader
@@ -15,7 +15,7 @@ class BookManager(object):
     def __init__(self, on_label_change) -> None:
         self.speech_assistant = SpeechHelper()
         self.file_manager = FileManager()
-        self.pdf_reader = PdfReader()
+        self.pdf_reader = PdfReader(on_label_change)
         self.change_label = on_label_change
 
     def _read_book(self, bookname: str):
@@ -29,8 +29,8 @@ class BookManager(object):
         line_num = 0
 
         if book_progress and not book_progress.get("completed", None):
-            self.speech_assistant.speak("Do you want to continue where you last left?")
             self.change_label("Continue? Yes or No")
+            self.speech_assistant.speak("Do you want to continue where you last left?")
             decision = self.speech_assistant.listen()
             if decision and re.match(re.compile('yes', re.IGNORECASE), decision):
                 page_num = book_progress["page_num"]
@@ -90,6 +90,7 @@ class BookManager(object):
             self.change_label("Restart? Yes or No")
             decision = self.speech_assistant.listen()
             if decision and not re.match(re.compile('yes', re.IGNORECASE), decision):
+                self.change_label(INSTRUCTIONS_AVAILABLE)
                 return
                 
         self._read_book(last_progressed_book)
