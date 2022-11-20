@@ -85,6 +85,4 @@ class FileManager(object):
 #todo: add support for more types than pdf
 #todo: add chapter support
 #todo: add first page support 
-# 
-# 
-# [test] continue should not ask where to continue
+#todo: pause is not working properly
