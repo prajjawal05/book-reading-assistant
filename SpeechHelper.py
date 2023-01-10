@@ -1,8 +1,8 @@
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
 
-
-speech_config = speechsdk.SpeechConfig(subscription="4a78b0929e514090a534d12ae5b8a1d7", region="eastus")
+# Note: The subscription code won't work. Have fun checking it out in the VCS anyways.
+speech_config = speechsdk.SpeechConfig(subscription="x", region="eastus")
 speech_recogniser = speechsdk.SpeechRecognizer(speech_config=speech_config)
 
 audio_config = AudioOutputConfig(use_default_speaker=True)
